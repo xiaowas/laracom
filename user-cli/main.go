@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/micro/cli/v2"
-	"github.com/micro/go-micro/v2"
+	"github.com/micro/cli"
+	"github.com/micro/go-micro"
 	"golang.org/x/net/context"
-	pb "github.com/xiaowas/laracom/user-service/proto/user"
+	pb "github.com/xiaowas/laracom-go/user-service/proto/user"
 	"log"
 	"os"
 )
