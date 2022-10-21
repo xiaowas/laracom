@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"github.com/micro/cli/v2"
 	"github.com/micro/go-micro/v2"
 	pb "github.com/xiaowas/laracom/user-service/proto/user"
@@ -39,13 +38,14 @@ func main() {
 
 		micro.Action(func(c *cli.Context) error {
 
-			fmt.Println("hello1")
 
 			name := c.String("name")
 			email := c.String("email")
 			password := c.String("password")
 
 			log.Println("参数:", name, email, password)
+
+
 
 			// 调用用户服务
 			r, err := client.Create(context.TODO(), &pb.User{
@@ -57,6 +57,25 @@ func main() {
 				log.Fatalf("创建用户失败: %v", err)
 			}
 			log.Printf("创建用户成功: %s", r.User.Id)
+
+
+			var token *pb.Token
+			token, err = client.Auth(context.TODO(), &pb.User{
+				Email: email,
+				Password: password,
+			})
+			if err != nil {
+				log.Fatalf("用户登录失败: %v", err)
+			}
+			log.Printf("用户登录成功：%s", token.Token)
+
+			// 调用用户验证服务
+			token, err = client.ValidateToken(context.TODO(), token)
+			if err != nil {
+				log.Fatalf("用户认证失败: %v", err)
+			}
+			log.Printf("用户认证成功：%s", token.Valid)
+
 
 			getAll, err := client.GetAll(context.Background(), &pb.Request{})
 			if err != nil {
