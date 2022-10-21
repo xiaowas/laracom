@@ -2,6 +2,10 @@
 version: '3.3'
 
 services:
+  laracom-user-cli:
+    build: ./user-cli
+    environment:
+      MICRO_REGISTRY: "mdns"
   laracom-user-service:
     depends_on:
       - laracom-user-db
@@ -29,6 +33,5 @@ services:
       MYSQL_PASSWORD: "test"
       MYSQL_DATABASE: "laracom_user"
       MYSQL_ROOT_PASSWORD: "root"
-
 volumes:
   db_data: {}
