@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/micro/cli/v2"
 	"github.com/micro/go-micro/v2"
 	pb "github.com/xiaowas/laracom/user-service/proto/user"
@@ -29,13 +30,17 @@ func main() {
 		),
 	)
 
-	service.Init()
 	// 远程服务客户端调用句柄
 	client := pb.NewUserService("laracom.user.service", service.Client())
 
+
 	// 运行客户端命令调用远程服务逻辑设置
 	service.Init(
+
 		micro.Action(func(c *cli.Context) error {
+
+			fmt.Println("hello1")
+
 			name := c.String("name")
 			email := c.String("email")
 			password := c.String("password")
@@ -68,4 +73,6 @@ func main() {
 	if err := service.Run(); err != nil {
 		log.Fatalf("用户客户端启动失败: %v", err)
 	}
+
+
 }
