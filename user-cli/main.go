@@ -1,40 +1,41 @@
 package main
 
 import (
-	"github.com/micro/cli"
-	"github.com/micro/go-micro"
+	"github.com/micro/cli/v2"
+	"github.com/micro/go-micro/v2"
+	pb "github.com/xiaowas/laracom/user-service/proto/user"
 	"golang.org/x/net/context"
-	pb "github.com/xiaowas/laracom-go/user-service/proto/user"
 	"log"
 	"os"
 )
 
-func main()  {
+func main() {
 
 	// 初始化客户端服务，定义命令行参数标识
 	service := micro.NewService(
 		micro.Flags(
-			cli.StringFlag{
-				Name: "name",
+			&cli.StringFlag{
+				Name:  "name",
 				Usage: "Your Name",
 			},
-			cli.StringFlag{
-				Name: "email",
+			&cli.StringFlag{
+				Name:  "email",
 				Usage: "Your Email",
 			},
-			cli.StringFlag{
-				Name: "password",
+			&cli.StringFlag{
+				Name:  "password",
 				Usage: "Your Password",
 			},
 		),
 	)
 
+	service.Init()
 	// 远程服务客户端调用句柄
-	client := pb.NewUserServiceClient("laracom.user.service", service.Client())
+	client := pb.NewUserService("laracom.user.service", service.Client())
 
 	// 运行客户端命令调用远程服务逻辑设置
 	service.Init(
-		micro.Action(func(c *cli.Context) {
+		micro.Action(func(c *cli.Context) error {
 			name := c.String("name")
 			email := c.String("email")
 			password := c.String("password")
@@ -43,8 +44,8 @@ func main()  {
 
 			// 调用用户服务
 			r, err := client.Create(context.TODO(), &pb.User{
-				Name: name,
-				Email: email,
+				Name:     name,
+				Email:    email,
 				Password: password,
 			})
 			if err != nil {
@@ -60,6 +61,7 @@ func main()  {
 				log.Println(v)
 			}
 			os.Exit(0)
+			return nil
 		}),
 	)
 
