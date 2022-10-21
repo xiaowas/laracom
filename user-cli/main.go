@@ -45,8 +45,6 @@ func main() {
 
 			log.Println("参数:", name, email, password)
 
-
-
 			// 调用用户服务
 			r, err := client.Create(context.TODO(), &pb.User{
 				Name:     name,

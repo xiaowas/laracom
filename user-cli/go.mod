@@ -3,9 +3,9 @@ module github.com/xiaomo/laracom/user-cli
 go 1.19
 
 require (
-	github.com/micro/cli v0.2.0
+	github.com/micro/cli/v2 v2.1.2
 	github.com/micro/go-micro/v2 v2.9.1
-	github.com/xiaowas/laracom/user-service v0.0.0-20221021104522-59bf29468bb5
+	github.com/xiaowas/laracom/user-service v0.0.0-20221021140333-d5d207020095
 	golang.org/x/net v0.1.0
 )
 
@@ -31,7 +31,6 @@ require (
 	github.com/imdario/mergo v0.3.9 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20190725054713-01f96b0aa0cd // indirect
-	github.com/micro/cli/v2 v2.1.2 // indirect
 	github.com/miekg/dns v1.1.27 // indirect
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/hashstructure v1.0.0 // indirect
