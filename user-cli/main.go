@@ -58,6 +58,7 @@ func main() {
 
 
 			var token *pb.Token
+
 			token, err = client.Auth(context.TODO(), &pb.User{
 				Email: email,
 				Password: password,
