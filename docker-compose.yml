@@ -2,6 +2,15 @@
 version: '3.3'
 
 services:
+  laracom-micro-api:
+    image: micro/micro:v2.9.3
+    environment:
+      MICRO_REGISTRY: "mdns"
+    links:
+      - laracom-user-service
+    ports:
+      - 8080:8080
+    command:  api --handler=rpc --namespace=laracom --type=service --enable_rpc
   laracom-user-cli:
     build: ./user-cli
     environment:
